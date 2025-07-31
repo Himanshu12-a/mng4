@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page 4 - Shayari for My Queen</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to top right, #ffdde1, #ee9ca7);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .message-box {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 90%;
+      font-size: 1.4rem;
+      text-align: center;
+      line-height: 2.2rem;
+      box-shadow: 0 0 30px rgba(255, 182, 193, 0.5);
+    }
+
+    .typewriter span {
+      display: inline;
+      border-right: 2px solid white;
+      white-space: pre-wrap;
+      animation: caret 0.7s infinite;
+    }
+
+    @keyframes caret {
+      0%, 100% { border-color: white; }
+      50% { border-color: transparent; }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .next-btn {
+      display: none;
+      margin-top: 30px;
+      padding: 12px 25px;
+      background-color: #fff;
+      color: #e75480;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .next-btn:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="message-box">
+    <div class="typewriter"><span id="text"></span></div>
+    <button class="next-btn" onclick="location.href='page5.html'">Next 💗</button>
+  </div>
+
+  <script>
+    const text = `Zara gaur farmaiyegaa Rani sahibaa 🫠🫠🫠 Here's a shayri for you and that is what I wanna say to you 🥰🥰
+
+Everyone has a story, Mine is beautiful with your existence!😚😚
+
+Everyone has a wish, Mine is to be with you till the end!🤗🤗
+
+Everyone has got a good luck charm, Mine is your presence!🥹🥹🥹
+
+Everyone has a soft corner for someone, Mine is only for you! 💞💞
+
+Everyone has someone special, And for me, that person is only you🐼🐼
+
+I love you so so so much 💕💕💋`;
+
+    const speed = 40;
+    let i = 0;
+    const span = document.getElementById("text");
+
+    function typeWriter() {
+      if (i < text.length) {
+        span.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      } else {
+        document.querySelector(".next-btn").style.display = "inline-block";
+      }
+    }
+
+    typeWriter();
+
+    // Create multiple floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>

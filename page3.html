@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page 3 - You & I = We</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(ellipse at top, #ffe6f0 0%, #ffcce0 100%);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .floating-letters {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .floating-letters span {
+      position: absolute;
+      font-size: 24px;
+      color: rgba(255, 105, 180, 0.3);
+      animation: float 10s linear infinite;
+      user-select: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+      }
+    }
+
+    .message-box {
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #ff99cc;
+      max-width: 90%;
+      font-size: 18px;
+      line-height: 1.8;
+      color: #cc0066;
+      text-align: center;
+    }
+
+    .next-btn {
+      display: none;
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    b {
+      font-weight: bold;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-letters"></div>
+
+  <div class="message-box" id="message"></div>
+  <button class="next-btn" id="nextBtn" onclick="goToNextPage()">Next ➤</button>
+
+  <script>
+    const message = `
+I know my love 😚 I dont have more word to express my self cause by words I have to limit my self 🥹🥹 but here's the poem exactly what I wana say 💞 💞 
+
+sooo, I just wana say that 
+
+How Can You "SM LE" Without "I"?🥹
+How Can You Be "F_ NE" Without "I"?🥹
+How Can You "W SH" Without "I"?🥹
+How Can You Be "N CE" Without "I"?🥹
+How Can You Be a "FR_END" Without "I"? So "I" Am Very Important!🫠🫠
+
+But How Can I Achieve "S CCESS" Without "U"? 
+How Can I "LA GH" Without "U"? 🥰🥰
+How Can I Take A "C P" of Tea Without "U"? 💞💞
+How Can I Enjoy The "S NSHINE" Without "U"? 
+How Can I Have "FN" Without "U"? 🥹🥹
+
+And That Makes "U" More Important Than Anything...
+
+Therefore humans (U & I) = We 🐻🐼
+
+WE need one another in life to be happy 🤗🤗🤗 
+and I just wana be with you forever 🥰🥰`;
+
+    const msgContainer = document.getElementById("message");
+    const nextBtn = document.getElementById("nextBtn");
+    let index = 0;
+
+    function typeMessage() {
+      if (index < message.length) {
+        msgContainer.innerHTML += message.charAt(index);
+        index++;
+        setTimeout(typeMessage, 60); // slower typing speed
+      } else {
+        nextBtn.style.display = "inline-block";
+      }
+    }
+
+    function goToNextPage() {
+      window.location.href = "page4.html"; // Replace with actual next page link
+    }
+
+    // Generate floating letters
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const container = document.querySelector('.floating-letters');
+    for (let i = 0; i < 50; i++) {
+      const span = document.createElement('span');
+      span.textContent = letters[Math.floor(Math.random() * letters.length)];
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.animationDelay = Math.random() * 10 + 's';
+      container.appendChild(span);
+    }
+
+    typeMessage();
+  </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>You're So Special</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #ffdee9, #b5fffc);
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: floatHearts 10s linear infinite;
+      opacity: 0.6;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 650px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .message {
+      font-size: 1.4rem;
+      white-space: pre-wrap;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .next-button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .next-button.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    b {
+      font-weight: bold;
+      font-size: 1.8rem;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container">
+    <div id="message" class="message"></div>
+    <button id="nextBtn" class="next-button" onclick="location.href='page2.html'">There's more for you 💖</button>
+  </div>
+
+  <script>
+    const intro = "Hey Gorgeous, This Is My Little Confession To You";
+    const lines = [
+      "You're the most beautiful.😳😳",
+      "You're the sweetest.😚😚",
+      "You're so damn gorgeous.🔥🔥",
+      "I can't take my eyes off from you 👀👀🫦",
+      "You're smile lights up my world.🥰🥰",
+      "You're eyes have a universe in them. Hayyy🫣🫣🫣",
+      "Just hearing your name makes me happy. aab name hai hi ita pyara 🤭🤭🤭",
+      "I wait for being with you every single moment. Just to talk to you to see you to listen you 💗 💗",
+      "Everything you says feels like poetry.🥹🥹🥹",
+      "You're one smile can fix my whole day.💞💞",
+      "When you looks at me, time freezes.and I just blush the blush  that nerve ends 🤭🤭",
+      "Every moment with you feels magical.🫠🫠",
+      "You're voice is the calm in my chaos.😍😍",
+      "One glance from you, and I lose myself.and those preety eyes ommgsssss😚😚😚",
+      "The whole world fades, and only one is all I see is you....😳😳❣❣",
+      "No matter how busy life gets,  you are always on my mind bebo. 🥹🥹Everything feels right when your are around your presence makes everything loos easy 🥰🥰🥰",
+      "you are just the one in whole universe 💗 you are damn gorgeous pucchuu😚😚",
+      "I'm completely in love with you.😘😘",
+      "And I love you so so so much my love 💞 😘"
+    ];
+
+    const messageBox = document.getElementById('message');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function typeText(text, container, speed, callback) {
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          container.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        } else {
+          if (callback) callback();
+        }
+      }
+      type();
+    }
+
+    function typeAllLines(index = 0) {
+      if (index >= lines.length) {
+        nextBtn.classList.add('show');
+        return;
+      }
+
+      let line = document.createElement("div");
+      messageBox.appendChild(line);
+
+      typeText(lines[index], line, 70, () => {
+        setTimeout(() => typeAllLines(index + 1), 300);
+      });
+    }
+
+    // Type Intro First (slower + bold)
+    let introLine = document.createElement("div");
+    introLine.innerHTML = "<b></b>";
+    messageBox.appendChild(introLine);
+    let boldTag = introLine.querySelector("b");
+
+    typeText(intro, boldTag, 120, () => {
+      setTimeout(() => {
+        typeAllLines();
+      }, 500);
+    });
+
+    // Heart animation
+    const heartsContainer = document.getElementById('hearts');
+    for (let i = 0; i < 20; i++) {
+      let heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      heartsContainer.appendChild(heart);
+    }
+  </script>
+
+</body>
+</html>
